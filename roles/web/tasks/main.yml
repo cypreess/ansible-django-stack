@@ -19,3 +19,6 @@
 
 - include: set_file_permissions.yml
   tags: deploy
+
+- include: restart.yml
+  tags: deploy

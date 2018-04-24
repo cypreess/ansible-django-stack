@@ -64,7 +64,13 @@
             backup=yes
   tags: deploy
 
+- name: Create WWW folder
+  file:
+   path: "{{ www_path }}"
+   recurse: yes
+   state: directory
+
 - name: Create the maintenance page
   template: src=maintenance_off.html
-            dest={{ virtualenv_path }}/maintenance_off.html
+            dest={{ www_path }}/maintenance_off.html
             mode=0664

@@ -3,7 +3,7 @@ upstream {{ application_name }}_wsgi_server {
   # to return a good HTTP response (in case the Unicorn master nukes a
   # single worker for timing out).
 
-  server unix:{{ virtualenv_path }}/run/gunicorn.sock fail_timeout=0;
+  server unix:{{ run_path }}/gunicorn.sock fail_timeout=0;
 }
 
 server {
@@ -44,7 +44,7 @@ server {
     }
 
     location / {
-        if (-f {{ virtualenv_path }}/maintenance_on.html) {
+        if (-f {{ www_path }}/maintenance_on.html) {
             return 503;
         }
 
@@ -64,11 +64,11 @@ server {
     # Error pages
     error_page 500 502 504 /500.html;
     location = /500.html {
-        root {{ project_path }}/{{ application_name }}/templates/;
+        root {{ project_path }}/{{ django_project_name }}/templates/;
     }
 
     error_page 503 /maintenance_on.html;
     location = /maintenance_on.html {
-        root {{ virtualenv_path }}/;
+        root {{ www_path }}/;
     }
 }

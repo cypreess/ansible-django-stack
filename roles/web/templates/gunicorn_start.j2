@@ -1,8 +1,8 @@
 #!/bin/sh
 
 NAME="{{ application_name }}"
-DJANGODIR="{{ project_path }}"
-SOCKFILE={{ virtualenv_path }}/run/gunicorn.sock
+DJANGODIR="{{ project_path }}/{{ django_project_name }}"
+SOCKFILE={{ run_path }}/gunicorn.sock
 USER={{ gunicorn_user }}
 GROUP={{ gunicorn_group }}
 NUM_WORKERS={{ gunicorn_num_workers }}
@@ -35,4 +35,4 @@ exec gunicorn \
     --user $USER --group $GROUP \
     --log-level debug \
     --bind unix:$SOCKFILE \
-    {{ application_name }}.wsgi
+    {{ django_project_name }}.wsgi

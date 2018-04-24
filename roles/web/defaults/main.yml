@@ -7,12 +7,14 @@ virtualenv_python_version: "{{ base_python_package }}"
 
 
 # Application settings.
-virtualenv_path: "/webapps/{{ application_name }}"
-project_path: "{{ virtualenv_path }}/{{ project_name }}"
-application_log_dir: "{{ virtualenv_path }}/logs"
+virtualenv_path: "/home/{{ application_name }}/python-env"
+project_path: "/home/{{ application_name }}/src"
+application_log_dir: "/home/{{ application_name }}/logs"
 application_log_file: "{{ application_log_dir }}/gunicorn_supervisor.log"
 requirements_file: "{{ project_path }}/requirements.txt"
-
+manage_py_path: "{{ project_path }}/{{ django_project_name }}"
+run_path: "/home/{{ application_name }}/run"
+www_path: "/home/{{ application_name }}/www"
 
 # Gunicorn settings.
 gunicorn_user: "{{ application_name }}"
@@ -22,17 +24,8 @@ gunicorn_group: webapps
 # Nginx settings.
 nginx_access_log_file: "{{ application_log_dir }}/nginx_access.log"
 nginx_error_log_file: "{{ application_log_dir }}/nginx_error.log"
-nginx_static_dir: "{{ virtualenv_path }}/static/"
-nginx_media_dir: "{{ virtualenv_path }}/media/"
+nginx_static_dir: "/home/{{ application_name }}/static/"
+nginx_media_dir: "/home/{{ application_name }}/media/"
 
 
-# Django environment variables.
-django_environment:
-  DJANGO_SETTINGS_MODULE: "{{ django_settings_file }}"
-  DJANGO_SECRET_KEY: "{{ django_secret_key }}"
-  MEDIA_ROOT: "{{ nginx_media_dir }}"
-  STATIC_ROOT: "{{ nginx_static_dir }}"
-  DATABASE_NAME: "{{ db_name }}"
-  DATABASE_USER: "{{ db_user }}"
-  DATABASE_PASSWORD: "{{ db_password }}"
-  BROKER_URL: "{{ broker_url }}"
+
